@@ -1,0 +1,98 @@
+Брат🕴🏼 Родной, [22.01.19 23:34]
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""Simple Bot to reply to Telegram messages.
+This program is dedicated to the public domain under the CC0 license.
+This Bot uses the Updater class to handle the bot.
+First, a few handler functions are defined. Then, those functions are passed to
+the Dispatcher and registered at their respective places.
+Then, the bot is started and runs until we press Ctrl-C on the command line.
+Usage:
+Basic Echobot example, repeats messages.
+Press Ctrl-C on the command line or send a signal to the process to stop the
+bot.
+"""
+
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import telegram
+import logging
+
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
+logger = logging.getLogger(name)
+
+
+# Define a few command handlers. These usually take the two arguments bot and
+# update. Error handlers also receive the raised TelegramError object in error.
+def start(bot, update):
+    """Send a message when the command /start is issued."""
+    bot.send_message(chat_id=update.message.chat.id,
+                     text = 'Здравствуйте, '
+                            '\n\n<b>AdvertisingBot</b> - это сервис по предоставлению эффективной рекламной площадки в Telegram!'
+                            '\nМы предоставляем в качестве рекламной площадки - <b>спонсорские каналы</b> в прокси.'
+                            '\n\nНаши преимущества:'
+                            '\n1. Реклама в прокси <b>эффективнее</b>, чем реклама в обычных каналах - Ваш канал будет всегда на первом месте в списке чатов пользователя;'
+                            '\n2. Прокси-сервера делятся по <b>целевой аудитории</b> - Вам предоставляется возможность выбора целевой аудитории для рекламного продукта.'
+                            '\n\nДля получения списка прокси-серверов и информации о них, введите команду /proxies',
+                     parse_mode = telegram.ParseMode.HTML)
+
+
+def proxies(bot, update):
+    """Send a message when the command /help is issued."""
+    bot.send_message(chat_id=update.message.chat.id,
+                     text = '1. <b>football_proxy</b>:'
+                            '\n    ✅ Целевая аудитория: '
+                            '\n       🧬Возраст - 16-25 лет'
+                            '\n      🚻Пол - преобладают мужчины'
+                            '\n      ⚽️Увлечения - футбол'
+                            '\n      😎Количество пользователей: ~3.000'
+                            '\n      💸Цена: от 300р в день'
+                            '\n\n2. <b>travel_proxy</b>:'
+                            '\n    ✅ Целевая аудитория: '
+                            '\n       🧬Возраст - 18-30 лет'
+                            '\n      🚻Пол - мужчины и женщины'
+                            '\n      🗺Увлечения - путешествия'
+                            '\n      😎Количество пользователей: ~8.000'
+                            '\n      💸Цена: от 500р в день'
+                            '\n\n2. <b>english_proxy</b>:'
+                            '\n    ✅ Целевая аудитория: '
+                            '\n       🧬Возраст - 14-40 лет'
+                            '\n      🚻Пол - мужчины и женщины'
+                            '\n      🇬🇧Увлечения - изучение языков, самообразование'
+                            '\n      😎Количество пользователей: ~4.000'
+                            '\n      💸Цена: от 350р в день',
+                            '\n\n2. <b>bets_proxy</b>:'
+                            '\n    ✅ Целевая аудитория: '
+                            '\n       🧬Возраст - 18-40 лет'
+                            '\n      🚻Пол - мужчины'
+                            '\n      📈Увлечения - ставки, прогнозы на спорт'
+                            '\n      😎Количество пользователей: ~7.000'
+                            '\n      💸Цена: от 400р в день',
+                            '\n\n2. <b>music_proxy</b>:'
+                            '\n    ✅ Целевая аудитория: '
+                            '\n       🧬Возраст - 16-28 лет'
+                            '\n      🚻Пол - мужчины и женщины'
+                            '\n      🎧Увлечения - новые песни'
+                            '\n      😎Количество пользователей: ~3.000'
+                            '\n      💸Цена: от 300р в день',
+                     parse_mode = telegram.ParseMode.HTML)
+
+def error(bot, update, error):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, error)
+
+
+def main():
+    """Start the bot."""
+    # Create the EventHandler and pass it your bot's token.
+    updater = Updater("624882139:AAHh0T3EBIVlNMtG-zcgv5LBrOb-HdH4zaY")
+
+    # Get the dispatcher to register handlers
+    dp = updater.dispatcher
+
+    # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("proxies", proxies))
